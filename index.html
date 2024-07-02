@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>성산스테이션</title>
+
+    <style>
+        .TitleName{
+        text-align: center;}
+        .RoomNBed{
+        display: flex;
+        justify-content: space-between;}
+        .RoomInfo{
+        text-align: center;
+        width: 25%;
+        border-style:solid;
+        border-color: brown;}
+        .Content{
+        text-align: left;
+        margin-left: 5%;
+        line-height: 30px;}
+        .BedCount{
+        text-align: center;
+        width: 25%;
+        border-style:solid;
+        border-color: brown;
+        line-height: 30px;}
+        .slider{
+        width: 400px;
+        height: 300px;
+        overflow: hidden;
+        position: relative;}
+        .slides{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        transition: transform 0.5s ease-in-out;}
+        .slides img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;}
+        .footer{
+        left: 45%;
+        text-align: center;
+        position: absolute;
+        bottom: 0%;}    
+    </style>
+
+</head>
+
+<body>
+    <div class="TitleName">
+        <h1>SungSan Station</h1>
+    </div>
+
+    <div class="RoomNBed">
+        <div class="RoomInfo">
+            <h2>호실 정보</h2>
+            <h4 class="Content">
+            101호  비품실 pw 2854 <br>
+            102호  브라운 더블(퀸) (여성) pw 2012 <br>
+            103호  4인 도미토리 (남성) pw 3012 <br>
+            105호  브라운 슈퍼싱글 (남성) pw 5012 <br>
+            201호  내츄럴 슈퍼싱글 (여성,일출봉 전망) pw 1021 <br>
+            202호  내츄럴 트윈 (여성) pw 2021 <br>
+            203호  브라운 더블(퀸) (혼성) pw 3021 <br>
+            204호  브라운 슈퍼싱글+퀸 (혼성) pw 4021 <br>
+            205호  4인 도미토리 (여성) pw 5021 <br>
+            206호  내츄럴 더블(퀸) (혼성) pw 6021 <br>
+            207호  내츄럴 트윈 (남성) pw 7021 
+            </h4>
+        </div>
+
+        <div class="sumArea">
+        <div class="slider" id="picBlind">
+            <div class="slides">
+                <img src="es.jpeg">
+                <img src="et.jpeg">
+                <img src="ef.jpeg">
+            </div>
+        </div>
+            <div id="s102"></div>
+            <div id="s103"></div>
+            <div id="s105"></div>
+            <div id="s201"></div>
+            <div id="s202"></div>
+            <div id="s203"></div>
+            <div id="s204"></div>
+            <div id="s205"></div>
+            <div id="s206"></div>
+            <div id="s207"></div><br>
+            <div id="testSum"></div>
+        </div>
+
+        <div class="BedCount">
+            <h2>명일 배딩</h2>
+            <button id="b102">102호</button> 
+            <button id="b103">103호</button>
+            <button id="b105">105호</button> <br>
+            <button id="b201">201호</button>
+            <button id="b202">202호</button> 
+            <button id="b203">203호</button>
+            <button id="b204">204호</button> <br>
+            <button id="b205">205호</button>
+            <button id="b206">206호</button> 
+            <button id="b207">207호</button> <br>
+            <button id="breset">초기화</button>
+            <button id="sum">베딩합계</button>
+        </div>
+</div>
+
+    <footer class="footer">
+        <p>Copyright © 2024 Mad</p>
+        <address>IG @s_sth</address>
+    </footer>
+
+    <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const slider = document.querySelector('.slides');
+    let currentIndex = 0;
+    const slideCount = slider.children.length;
+    const slideWidth = 400; 
+    const slideInterval = 3000;
+
+    setInterval(function() {
+        currentIndex = (currentIndex + 1) % slideCount;
+        slider.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    }, slideInterval);});
+
+        function getWeek(){
+            const week = new Array('일요일', '월요일', '화요일', '수요일','목요일','금요일','토요일');
+            let date = new Date();
+            let tomorrow = date.getDay();
+            if(tomorrow===6){
+                tomorrow =0;
+            }else{
+                tomorrow = tomorrow+1;
+            }
+            console.log(tomorrow);
+            const today = week[tomorrow];
+            return today;
+        }
+
+        let mw = 0;
+        let bw = 0;
+
+        let fmw = 0;
+        let fbw = 0;
+
+        let smw = 0;
+        let smr = 0;
+        let smy = 0;
+        let smb = 0;
+
+        let sbw = 0;
+        let sbr = 0;
+
+        let pilm = 0;
+        let pilf = 0;
+
+        document.getElementById("b102").onclick = function(){
+            document.getElementById("s102").innerHTML = "102호 메트리스 빨=1, 이불 빨=1, 베개=2";
+            document.getElementById("picBlind").style.display = "none";
+            smr = smr + 1;
+            sbr = sbr + 1;
+            this.onclick = null;
+        }
+        document.getElementById("b103").onclick = function(){
+            let mc = 0;
+            let bc = 0;
+            
+            mw = mw + 1;
+            mc++;
+            bw = bw + 1;
+            bc++;
+            pilm = pilm + 1;
+            document.getElementById("s103").innerHTML = "103호 메트리스 흰=" + mw + ", 이불 흰=" + bw + ", 베개=" + pilm;
+            document.getElementById("picBlind").style.display = "none";
+            smw = smw + mc;
+            sbw = sbw + bc;
+        }
+        document.getElementById("b105").onclick = function(){
+            document.getElementById("s105").innerHTML = "105호 메트리스 노=1, 이불 흰=1, 베개=1";
+            document.getElementById("picBlind").style.display = "none";
+            smy = smy + 1;
+            sbw = sbw + 1;
+            this.onclick = null;
+
+        }
+        document.getElementById("b201").onclick = function(){
+            document.getElementById("s201").innerHTML = "201호 메트리스 노=1, 이불 흰=1, 베개=1";
+            document.getElementById("picBlind").style.display = "none";
+            smy = smy + 1;
+            sbw = sbw + 1;
+            this.onclick = null;
+        }
+        document.getElementById("b202").onclick = function(){
+            document.getElementById("s202").innerHTML = "202호 메트리스 파=2, 이불 흰=2, 베개=2";
+            document.getElementById("picBlind").style.display = "none";
+            smb = smb + 2;
+            sbw = sbw + 2;
+            this.onclick = null;
+        }
+        document.getElementById("b203").onclick = function(){
+            document.getElementById("s203").innerHTML = "203호 메트리스 빨=1, 이불 빨=1, 베개=2";
+            document.getElementById("picBlind").style.display = "none";
+            smr = smr + 1;
+            sbr = sbr + 1;
+            this.onclick = null;
+        }
+        document.getElementById("b204").onclick = function(){
+            document.getElementById("s204").innerHTML = "204호 메트리스 빨=1 노=1, 이불 빨=1 흰=1, 베개=3";
+            document.getElementById("picBlind").style.display = "none";
+            smr = smr + 1;
+            smy = smy + 1;
+            sbr = sbr + 1;
+            sbw = sbw + 1;
+            this.onclick = null;
+        }
+        document.getElementById("b205").onclick = function(){
+            let mc = 0;
+            let bc = 0;
+            
+            fmw = fmw + 1;
+            mc++;
+            fbw = fbw + 1;
+            bc++;
+            pilf = pilf + 1;
+            document.getElementById("s205").innerHTML = "205호 메트리스 흰=" + fmw + ", 이불 흰=" + fbw + ", 베개=" + pilf;
+            document.getElementById("picBlind").style.display = "none";
+            smw = smw + mc;
+            sbw = sbw + bc;
+        }
+        document.getElementById("b206").onclick = function(){
+            document.getElementById("s206").innerHTML = "206호 메트리스 빨=1, 이불 빨=1, 베개=2";
+            document.getElementById("picBlind").style.display = "none";
+            smr = smr + 1;
+            sbr = sbr + 1;
+            this.onclick = null;
+        }
+        document.getElementById("b207").onclick = function(){
+            document.getElementById("s207").innerHTML = "207호 메트리스 파=2, 이불 흰=2, 베개=2";
+            document.getElementById("picBlind").style.display = "none";
+            smb = smb + 2;
+            sbw = sbw + 2;
+            this.onclick = null;
+        }
+        document.getElementById("breset").onclick = function(){
+            window.location.reload();
+        }
+        document.getElementById("sum").onclick = function(){
+            let resultM = "";
+            let resultB = "";
+            if(smw !==0) resultM += " 흰 = " + smw + "<br>";
+            if(smr !==0) resultM += " 빨 = " + smr + "<br>";
+            if(smb !==0) resultM += " 파 = " + smb + "<br>";
+            if(smy !==0) resultM += " 노 = " + smy + "<br>";
+
+            if(sbw !==0) resultB += " 흰 = " + sbw + "<br>";
+            if(sbr !==0) resultB += " 빨 = " + sbr + "<br>";
+
+            let today = new Date();
+            let month = today.getMonth()+1;
+            let day = today.getDate()+1;
+            let dateForm = "";
+            let week = getWeek();
+            dateForm = month + "월 " + day + "일 " + week;
+            document.getElementById("testSum").innerHTML = dateForm + "<br>" + "<메트리스> "+ "<br>"  + resultM + "<br>" + "<이불> "+ "<br>" + resultB;
+        }
+
+        
+    </script>
+</body>
+</html>
